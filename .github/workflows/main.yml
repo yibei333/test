@@ -13,7 +13,11 @@ jobs:
     runs-on: windows-latest 
     env:
       EnvData: hello
+      Tag: 0.0.1
     steps:
+    - name: SetVersion
+      run: set Tag=<pack/version.txt
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
@@ -33,6 +37,6 @@ jobs:
     - name: release
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ vars.Version }}
+        tag: ${{ env.Tag }}
         artifacts: "pack/files/*.txt"
         bodyFile: "pack/body.md"
