@@ -9,6 +9,11 @@ jobs:
     permissions: write-all
     runs-on: windows-latest 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
     - name: sync
       env:
         client-id: ${{secrets.GITEE_REPO_CLIENTID}}
