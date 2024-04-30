@@ -1,3 +1,3 @@
-$temp=(ConvertFrom-Json $0)
+$temp=(ConvertFrom-Json $env:tokentemp)
 $accesstoken=$temp.access_token
 Write-Output "token=$accesstoken" >> $ENV:GITHUB_OUTPUT
