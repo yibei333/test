@@ -8,8 +8,7 @@ on:
       
 jobs:
   build:
-    permissions:
-      contents: write
+    permissions: write-all
     runs-on: windows-latest 
     env:
       EnvData: hello
@@ -20,11 +19,13 @@ jobs:
         fetch-depth: 0
 
     - name: SetVersion
-      id: versionStep
-      run: echo "version=$(cat pack/version.txt)" >> "$GITHUB_OUTPUT"
+      id: SetVersion
+      run: |
+        echo "version=$(cat ./pack/version.txt)" >> "$GITHUB_OUTPUT"
+        echo "xx=yy" >> "$GITHUB_OUTPUT"
 
     - name: GetVersion
-      run: write-output 123 $GITHUB_OUTPUT ${{ steps.versionStep.outputs.version }} "${{ steps.versionStep.outputs.version }}" 234
+      run: write-output 123 $GITHUB_OUTPUT ${{ steps.SetVersion.outputs.version }} "${{ steps.SetVersion.outputs.version }}" 234 ${{ steps.SetVersion.outputs.xx }} 666
 
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
@@ -40,6 +41,6 @@ jobs:
     - name: release
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ steps.versionStep.outputs.version }}
+        tag: ${{ steps.SetVersion.outputs.version }}
         artifacts: "pack/files/*.txt"
         bodyFile: "pack/body.md"
