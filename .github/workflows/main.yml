@@ -13,12 +13,18 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
-    - name: sync
+
+    - name: token
+      id: token
       env:
         client-id: ${{secrets.GITEE_REPO_CLIENTID}}
         client-secret: ${{secrets.GITEE_REPO_CLIENTSECRET}}
         email: ${{secrets.GITEE_EMAIL}}
         password: ${{secrets.GITEE_PASSWORD}}
-      run: ./pack/sync.bat
+      run: ./pack/token.bat
+
+    - name: sync
+      env:
+        client-id: ${{steps.token.outputs.token}}
+      run: ./pack/token.bat
      
