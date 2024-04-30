@@ -23,10 +23,10 @@ jobs:
 
     - name: SetVersion
       id: versionStep
-      run: echo "test=$(cat pack/version.txt)" >> "$GITHUB_OUTPUT"
+      run: echo "version=$(cat pack/version.txt)" >> "$GITHUB_OUTPUT"
 
     - name: GetVersion
-      run: write-output 123 $GITHUB_OUTPUT ${{ needs.build.outputs.version }} 234
+      run: write-output 123 $GITHUB_OUTPUT ${{ needs.build.outputs.version }} "${{ needs.build.outputs.version }}" 234
 
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
