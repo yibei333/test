@@ -11,11 +11,14 @@ jobs:
     permissions:
       contents: write
     runs-on: windows-latest 
+    outputs:
+      version: ${{ steps.versionStep.outputs.version }}
     env:
       EnvData: hello
     steps:
     - name: SetVersion
-      run: set Tag=<pack/version.txt
+      id: versionStep
+      run: $GITHUB_OUTPUT = "version=$(cat pack/version.txt)"
 
     - name: Checkout
       uses: actions/checkout@v4
@@ -36,6 +39,6 @@ jobs:
     - name: release
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ github.ref }}
+        tag: ${{ needs.build.outputs.version }}
         artifacts: "pack/files/*.txt"
         bodyFile: "pack/body.md"
