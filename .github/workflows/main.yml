@@ -23,7 +23,7 @@ jobs:
 
     - name: SetVersion
       id: versionStep
-      run: $GITHUB_OUTPUT = "version=$(cat pack/version.txt)"
+      run: echo "test=$(cat pack/version.txt)" >> "$GITHUB_OUTPUT"
 
     - name: GetVersion
       run: write-output 123 $GITHUB_OUTPUT ${{ needs.build.outputs.version }} 234
