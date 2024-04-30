@@ -23,7 +23,7 @@ jobs:
     - name: token
       id: token
       env:
-        token: ${{steps.gettoken.outputs.tokentemp}}
+        tokentemp: ${{steps.gettoken.outputs.tokentemp}}
       run: ./pack/token.ps1
 
     - name: sync
