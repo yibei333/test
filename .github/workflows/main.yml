@@ -11,8 +11,6 @@ jobs:
     permissions:
       contents: write
     runs-on: windows-latest 
-    outputs:
-      version: ${{ steps.versionStep.outputs.version }}
     env:
       EnvData: hello
     steps:
@@ -26,7 +24,7 @@ jobs:
       run: echo "version=$(cat pack/version.txt)" >> "$GITHUB_OUTPUT"
 
     - name: GetVersion
-      run: write-output 123 $GITHUB_OUTPUT ${{ needs.build.outputs.version }} "${{ needs.build.outputs.version }}" 234
+      run: write-output 123 $GITHUB_OUTPUT ${{ steps.versionStep.outputs.version }} "${{ steps.versionStep.outputs.version }}" 234
 
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
@@ -42,6 +40,6 @@ jobs:
     - name: release
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ needs.build.outputs.version }}
+        tag: ${{ steps.versionStep.outputs.version }}
         artifacts: "pack/files/*.txt"
         bodyFile: "pack/body.md"
