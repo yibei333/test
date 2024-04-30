@@ -14,19 +14,19 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: gettoken
-      id: gettoken
+    - name: GetTokenResponse
+      id: GetTokenResponse
       run: |
         curl -X POST --data-urlencode "grant_type=password" --data-urlencode "username=${{secrets.GITEE_EMAIL}}" --data-urlencode "password=${{secrets.GITEE_PASSWORD}}" --data-urlencode "client_id=${{secrets.GITEE_REPO_CLIENTID}}" --data-urlencode "client_secret=${{secrets.GITEE_REPO_CLIENTSECRET}}" --data-urlencode "scope=projects user_info issues notes" https://gitee.com/oauth/token >> ./pack/token.txt
         echo "tokentemp=$(cat ./pack/token.txt)" >> $ENV:GITHUB_OUTPUT
      
-    - name: token
-      id: token
+    - name: GetToken
+      id: GetToken
       env:
-        tokentemp: ${{steps.gettoken.outputs.tokentemp}}
+        tokentemp: ${{steps.GetTokenResponse.outputs.tokentemp}}
       run: ./pack/token.ps1
 
     - name: sync
       env:
-        token: ${{steps.token.outputs.token}}
+        token: ${{steps.GetToken.outputs.token}}
       run: ./pack/sync.bat
