@@ -21,8 +21,8 @@ jobs:
     - name: SetVersion
       id: SetVersion
       run: |
-        echo "version=$(cat ./pack/version.txt)" >> "$GITHUB_OUTPUT"
-        echo "xx=yy" >> "$GITHUB_OUTPUT"
+        echo "version=$(cat ./pack/version.txt)" >> $ENV:GITHUB_OUTPUT
+        echo "xx=yy" >> $ENV:GITHUB_OUTPUT
 
     - name: GetVersion
       run: write-output 123 $GITHUB_OUTPUT ${{ steps.SetVersion.outputs.version }} "${{ steps.SetVersion.outputs.version }}" 234 ${{ steps.SetVersion.outputs.xx }} 666
