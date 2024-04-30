@@ -16,15 +16,11 @@ jobs:
 
     - name: token
       id: token
-      env:
-        client-id: ${{secrets.GITEE_REPO_CLIENTID}}
-        client-secret: ${{secrets.GITEE_REPO_CLIENTSECRET}}
-        email: ${{secrets.GITEE_EMAIL}}
-        password: ${{secrets.GITEE_PASSWORD}}
-      run: ./pack/token.bat
-
+      run: |
+        curl -X POST --data-urlencode "grant_type=password" --data-urlencode "username=${{secrets.GITEE_EMAIL}}" --data-urlencode "password=${{secrets.GITEE_PASSWORD}}" --data-urlencode "client_id=${{secrets.GITEE_REPO_CLIENTID}}" --data-urlencode "client_secret=${{secrets.GITEE_REPO_CLIENTSECRET}}" --data-urlencode "scope=projects user_info issues notes" https://gitee.com/oauth/token >> ./pack/token.txt
+        echo "token=$(cat ./pack/token.txt)" >> $ENV:GITHUB_OUTPUT
+        
     - name: sync
       env:
         token: ${{steps.token.outputs.token}}
       run: ./pack/sync.bat
-     
