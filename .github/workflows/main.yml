@@ -33,6 +33,6 @@ jobs:
     - name: release
       uses: ncipollo/release-action@v1
       with:
-        tag: "v0.0.4"
-        artifacts: "pack/files/*"
+        tag: "v0.0.5"
+        artifacts: "pack/files/*.txt"
         bodyFile: "pack/body.md"
