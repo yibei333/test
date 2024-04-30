@@ -25,6 +25,6 @@ jobs:
 
     - name: sync
       env:
-        client-id: ${{steps.token.outputs.token}}
+        token: ${{steps.token.outputs.token}}
       run: ./pack/sync.bat
      
