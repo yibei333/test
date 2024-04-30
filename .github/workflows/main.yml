@@ -18,7 +18,7 @@ jobs:
     steps:
     - name: SetVersion
       id: versionStep
-      run: $GITHUB_OUTPUT = "version=$(cat pack/version.txt)"
+      run: $GITHUB_OUTPUT = "version=$(cat version.txt)"
 
     - name: Checkout
       uses: actions/checkout@v4
