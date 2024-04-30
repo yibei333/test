@@ -8,6 +8,8 @@ on:
       
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: windows-latest 
     env:
       EnvData: hello
@@ -24,6 +26,12 @@ jobs:
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v2
-      
+
     - name: Invoke
       run: ./pack/test.bat
+
+    - name: release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "pack/files/*"
+        bodyFile: "pack/body.md"
