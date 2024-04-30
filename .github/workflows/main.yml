@@ -26,7 +26,7 @@ jobs:
       run: $GITHUB_OUTPUT = "version=$(cat pack/version.txt)"
 
     - name: GetVersion
-      run: echo $GITHUB_OUTPUT
+      run: echo 123; echo $GITHUB_OUTPUT;echo ${{ needs.build.outputs.version }} ;echo 234;
 
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
