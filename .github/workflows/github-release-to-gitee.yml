@@ -1,4 +1,4 @@
-name: release
+name: syncrelease2gitee
 
 on:
   workflow_run:
