@@ -1,0 +1,29 @@
+name: release
+
+on:
+  workflow_run:
+    workflows: ["release"]
+    types: [completed]
+      
+jobs:
+  build:
+    permissions: write-all
+    runs-on: windows-latest 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: GetTokenResponse
+      id: GetTokenResponse
+      run: |
+        curl -X POST --data-urlencode "grant_type=password" --data-urlencode "username=${{secrets.GITEE_EMAIL}}" --data-urlencode "password=${{secrets.GITEE_PASSWORD}}" --data-urlencode "client_id=${{secrets.GITEE_REPO_CLIENTID}}" --data-urlencode "client_secret=${{secrets.GITEE_REPO_CLIENTSECRET}}" --data-urlencode "scope=projects user_info issues notes" https://gitee.com/oauth/token >> ./pack/token.txt
+        echo "tokenResponse=$(cat ./pack/token.txt)" >> $ENV:GITHUB_OUTPUT
+     
+    - name: sync
+      env:
+        tokenResponse: ${{steps.GetTokenResponse.outputs.tokenResponse}}
+        repo: ${{vars.GITEE_REPO}}
+        owner: ${{vars.GITEE_OWNER}}
+      run: ./pack/SyncGithubReleaseToGitee.exe
