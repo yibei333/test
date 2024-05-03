@@ -26,4 +26,5 @@ jobs:
         tokenResponse: ${{steps.GetTokenResponse.outputs.tokenResponse}}
         repo: ${{vars.GITEE_REPO}}
         owner: ${{vars.GITEE_OWNER}}
+        email: ${{secrets.GITEE_EMAIL}}
       run: ./pack/SyncGithubReleaseToGitee.exe
