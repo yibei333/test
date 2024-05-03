@@ -21,4 +21,4 @@ jobs:
         echo "token=$(cat ./pack/token.txt)" >> $ENV:GITHUB_OUTPUT
      
     - name: sync
-      run: ./pack/SyncGithubReleaseToGitee.exe --token-response=${{steps.GetTokenResponse.outputs.token}} --repo=${{vars.GITEE_REPO}}
+      run: ./pack/SyncGithubReleaseToGitee.exe --token-response="${{steps.GetTokenResponse.outputs.token}}" --repo=${{vars.GITEE_REPO}}
