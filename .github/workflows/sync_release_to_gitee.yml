@@ -1,4 +1,4 @@
-name: syncrelease2gitee
+name: sync_release_to_gitee
 
 on:
   workflow_run:
@@ -27,4 +27,5 @@ jobs:
         repo: ${{vars.GITEE_REPO}}
         owner: ${{vars.GITEE_OWNER}}
         email: ${{secrets.GITEE_EMAIL}}
+        aa: ${{secrets.GITHUB_TOKEN}}
       run: ./pack/SyncGithubReleaseToGitee.exe
