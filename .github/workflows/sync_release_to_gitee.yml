@@ -22,6 +22,6 @@ jobs:
       env:
         gitee_token: ${{secrets.GITEE_TOKEN}}
         github_token: ${{secrets.GITHUB_TOKEN}}
-        repo: ${{github.repository}}
-        owner: ${{github.repository_owner_id}}
+        repo: ${{github.repository_id}}
+        owner: ${{github.repository_owner}}
       run: ./SyncGithubReleaseToGitee.exe
