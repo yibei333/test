@@ -16,5 +16,5 @@ jobs:
 
     - name: GetTokenResponse
       id: GetTokenResponse
-      run: ./pack/SyncGithubReleaseToGitee.exe --repo=${{vars.GITEE_REPO}} --client-id=${{secrets.GITEE_REPO_CLIENTID}} --client-secret=${{secrets.GITEE_REPO_CLIENTSECRET}} --email=${{secrets.GITEE_EMAIL}} --password=${{secrets.GITHUB_PASSWORD}}
+      run: ./pack/SyncGithubReleaseToGitee.exe --repo=${{vars.GITEE_REPO}} --client-id=${{secrets.GITEE_REPO_CLIENTID}} --client-secret=${{secrets.GITEE_REPO_CLIENTSECRET}} --email=${{secrets.GITEE_EMAIL}} --password=${{secrets.GITEE_PASSWORD}}
      
